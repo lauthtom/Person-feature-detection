@@ -2,7 +2,7 @@
 Detect features of persons: gender, hair colour, beard, nationality, glasses
 
 ### Datasets
-The Datasets we used in this project are the following:
+The Datasets I used in this project are the following:
 * https://www.kaggle.com/datasets/jessicali9530/celeba-dataset
 * https://www.kaggle.com/datasets/jangedoo/utkface-new/data
 
