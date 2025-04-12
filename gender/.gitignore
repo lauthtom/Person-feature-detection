@@ -1,0 +1,11 @@
+# Ignore MacOS File
+.DS_Store
+
+# Ignore jupiter temp files like "checkpoints"
+.ipynb_checkpoints
+
+# Ignore all images for training, validation and testing
+Test_train_data_amount/**/*.jpg
+Train/**/*.jpg
+Validation/**/*.jpg
+Test/**/*.jpg

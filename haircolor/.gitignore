@@ -1,0 +1,5 @@
+# Ignore MacOS File
+.DS_Store
+
+# Ignore all images for training, validation and testing
+**/*.png
