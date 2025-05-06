@@ -5,7 +5,7 @@ Bisher erkennbare Eigenschaften sind: Geschlecht, (Herkunft), Haarfarbe, Bart od
 
 Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selber geschrieben/"entdeckt" wurde.
 
-### Fortshritt
+### Fortschritt
 - Dokumentation des alten Stands (Video über die Performance/Genauigkeit über das Live Video)
 
 
