@@ -4,8 +4,7 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
-from tensorflow.keras.preprocessing.image import load_img, img_to_array
-from tqdm import tqdm
+from keras.preprocessing.image import load_img, img_to_array
 
 model_names = [
     "Gender_classification.keras",
@@ -16,20 +15,22 @@ model_names = [
 ]
 
 models_dir = "Models/"
+path_to_models = "/Users/tomlauth/Library/CloudStorage/GoogleDrive-santoxhd@gmail.com/Meine Ablage/Studium/Master/2 FS SoSe/Individual Profiling/Old_Models"
 
-if len(os.listdir(models_dir)) == len(model_names):
+if len(os.listdir(path_to_models)) == len(model_names):
 
     models = {}
 
     for model_name in model_names:
-        model_path = os.path.join(models_dir, model_name)
+        model_path = os.path.join(path_to_models, model_name)
         print(f"Trying to load the {model_name} model...")
         models[model_name] = tf.keras.models.load_model(model_path)
         print(f"Successfully loaded the {model_name} model.")
 
     print("All models loaded successfully!")
 
-    answer = input("Do you want to continue predicting with live video? (Y/N)").upper()
+    answer = input(
+        "Do you want to continue predicting with live video? (Y/N)").upper()
 
     if answer == "Y":
         pass
@@ -57,9 +58,11 @@ for image in images_dir:
 
         gender_pred = models["Gender_classification.keras"].predict(img_array)
         beard_pred = models["Beard_classification.keras"].predict(img_array)
-        haircolor_pred = models["Haircolor_classification.keras"].predict(img_array)
+        haircolor_pred = models["Haircolor_classification.keras"].predict(
+            img_array)
         nation_pred = models["Nation_classification.keras"].predict(img_array)
-        glasses_pred = models["Glasses_classification.keras"].predict(img_array)
+        glasses_pred = models["Glasses_classification.keras"].predict(
+            img_array)
 
         image_width = img.size[0]
         image_height = img.size[1]
