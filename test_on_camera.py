@@ -122,11 +122,13 @@ def classify_frame(frame: cv2.typing.MatLike) -> tuple[str, str, str, str, str]:
     glasses = "No Glasses" if glasses_prediction[0][0] > 0.5 else "Glasses"
     nation = nation_labels[np.argmax(nation_prediction)]
 
-    return gender, beard, haircolor, glasses, nation
+    return gender, gender_prediction[0][0], beard, beard_prediction[0][0], haircolor, glasses, glasses_prediction[0][0], nation
 
 
 # Try either 0 or 1, it depends on your OS
 cap = cv2.VideoCapture(1)
+cv2.namedWindow("Camera Window", cv2.WINDOW_NORMAL)
+cv2.resizeWindow("Camera Window", 640, 480)
 
 if not cap.isOpened():
     print("Error: Camera couldn't start")
@@ -141,11 +143,28 @@ while True:
 
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    gender, beard, haircolor, glasses, nation = classify_frame(rgb_frame)
+    gender, gender_accuracy, beard, beard_accuracy, haircolor, glasses, glasses_accuracy, nation = classify_frame(
+        rgb_frame)
 
-    text = f"Gender: {gender}, Beard: {beard}, Haircolor: {haircolor}, Glasses: {glasses}, Nation: {nation}"
-    cv2.putText(frame, text, (10, 30),
-                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    # text = f"Gender: {gender}, Accuracy: {gender_accuracy:.1f}%, Beard: {beard}, Accuracy: {beard_accuracy:.1f}%, Haircolor: {haircolor}, Glasses: {glasses}, Accuracy: {glasses_accuracy:.1f}%, Nation: {nation}"
+    # cv2.putText(frame, text, (10, 30),
+    #             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+    lines = [
+        f"Gender: {gender}, Accuracy: {gender_accuracy:.1f}%",
+        f"Beard: {beard}, Accuracy: {beard_accuracy:.1f}%",
+        f"Haircolor: {haircolor}, Glasses: {glasses}, Accuracy: {glasses_accuracy:.1f}%",
+        f"Nation: {nation}"
+    ]
+
+    y0 = 30
+    dy = 35
+
+    for i, line in enumerate(lines):
+        y = y0 + i * dy
+        cv2.putText(frame, line, (10, y),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
     cv2.imshow("Camera Window", frame)
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
