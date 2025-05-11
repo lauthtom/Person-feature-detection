@@ -7,6 +7,13 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 
 ### Fortschritt
 - Dokumentation des alten Stands (Video über die Performance/Genauigkeit über das Live Video)
+- Python skript erstellt, welches versucht ein Gesicht aus einem Bild zu erkennen und zu extrahieren. Des Weiteren wird dieses Bild aufbereitet und weitergegeben für eine Vorhersage der jeweiligen KI-Modelle
+
+### TODO:
+- Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (kann immernoch beeinflussbaren Hintergrund enthalen!)
+- Performance der Face Detection dokumentieren, eventuell in eine Datei schreiben?
+- Skript erstellen, welches automatisiert den Datensatz für die einzelnen KI-Modelle vorbereitet
+- Face Detection in einem Live Video testen
 
 
 ### Ziele/Optimierungen für IPROF
