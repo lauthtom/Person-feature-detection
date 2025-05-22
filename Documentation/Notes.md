@@ -14,18 +14,18 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 - Face Detection in einem Live Video testen (Funktioniert - kann auch vorgeführt werden)
 
 ### TODO:
-- Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (In Bearbeitung)
-- Performance der Face Detection dokumentieren, eventuell in eine Datei schreiben (Oder hier auch wieder diesselben Bilder Spots nehmen, wie auch bei der Dokumentation der Prediction ohne Face Detection)? (In Bearbeitung)
-- Skript erstellen, welches automatisiert den Datensatz für die einzelnen KI-Modelle vorbereitet (In Bearbeitung)
-- Skript anpassen, um statische Bilder zu testen (In Bearbeitung)
+- Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (**In Bearbeitung**)
+- Performance der Face Detection dokumentieren, eventuell in eine Datei schreiben (Oder hier auch wieder diesselben Bilder Spots nehmen, wie auch bei der Dokumentation der Prediction ohne Face Detection)? (**In Bearbeitung**)
+- Skript erstellen, welches automatisiert den Datensatz für die einzelnen KI-Modelle vorbereitet (**In Bearbeitung**)
+- Skript anpassen, um statische Bilder zu testen (**In Bearbeitung**)
 - Verschiedene Data Augmentierungs arten testen um die Performance eventuell nochmal zu verbessern
 
 
 ### Ziele/Optimierungen für IPROF
-1. Bild Format (JPG) anschauen, ob das so gut für die Eingabe ist und auch später für die Data Augmentierung (Erledigt)
+1. Bild Format (JPG) anschauen, ob das so gut für die Eingabe ist und auch später für die Data Augmentierung (**Erledigt**)
 
-2. Live video erkennung präziser machen, indem ein Face detection Model im Hintergrund mitläuft und erst im live feed ein Gesicht extrahiert und dieses dann im Anschluss als Input Bild für die KI-Modelle zum vorhersagen benutzt. (Erledigt)
-    - Aktuell wird nämlich im live video das gesamte Bild als Input benutzt und das führt zu Problemen, wie das die Modelle keine klaren und sicheren Vorhersagen treffen können. (Erledigt)
+2. Live video erkennung präziser machen, indem ein Face detection Model im Hintergrund mitläuft und erst im live feed ein Gesicht extrahiert und dieses dann im Anschluss als Input Bild für die KI-Modelle zum vorhersagen benutzt. (**Erledigt**)
+    - Aktuell wird nämlich im live video das gesamte Bild als Input benutzt und das führt zu Problemen, wie das die Modelle keine klaren und sicheren Vorhersagen treffen können. (**Erledigt**)
 
 3. Verschiedene Data Augmentierungs Arten ausprobieren und evaluieren. Kan man das ganze eventuell automatisieren (Pipeline)?
     - Genauigkeiten der Modelle sollen hoffentlich dadurch besser werden
