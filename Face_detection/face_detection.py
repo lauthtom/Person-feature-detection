@@ -4,6 +4,7 @@ import glob
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def detect_face(image_path: str, padding: float) -> np.ndarray | None:
     """
     Detects the first face in the image and returns the cropped face region with optional padding.
@@ -12,7 +13,7 @@ def detect_face(image_path: str, padding: float) -> np.ndarray | None:
     ----------
     image_path : str
         Path to the input image.
-        
+
     padding : float
         Relative amount of padding to apply around the detected face bounding box.
         For example, 0.2 will expand the bounding box by 20% on each side.
@@ -59,7 +60,35 @@ def detect_face(image_path: str, padding: float) -> np.ndarray | None:
     return None
 
 
-def preprocess_image_array(img_array: np.ndarray, target_size=(224, 224)) -> np.ndarray:
+def detect_face_from_frame(frame: np.ndarray, padding: float = 0.2) -> tuple[np.ndarray, tuple[int, int, int, int]] | tuple[None, None]:
+    # TODO: Documentation!!!
+    gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    face_classifier = cv2.CascadeClassifier(
+        cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
+    )
+
+    faces = face_classifier.detectMultiScale(
+        gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(40, 40)
+    )
+
+    for (x, y, w, h) in faces:
+        x_pad = int(0.1 * w)
+        y_pad = int(0.3 * h)
+
+        x_new = max(x - x_pad, 0)
+        y_new = max(y - y_pad, 0)
+        w_new = min(w + 2 * x_pad, frame.shape[1] - x_new)
+        h_new = min(h + 2 * y_pad, frame.shape[0] - y_new)
+
+        face_cropped = frame[y_new:y_new + h_new, x_new:x_new + w_new]
+        return face_cropped, (x_new, y_new, w_new, h_new)
+
+    return None, None
+
+
+
+def preprocess_image_array(img_array: np.ndarray, target_size: tuple = (224, 224)) -> np.ndarray:
     """
     Resizes, normalizes and expands dimensions of an image array.
 
@@ -79,7 +108,7 @@ def preprocess_image_array(img_array: np.ndarray, target_size=(224, 224)) -> np.
     img = cv2.resize(img_array, target_size)
     img = img / 255.0
     img = np.expand_dims(img, axis=0)
-    
+
     return img
 
 
@@ -97,7 +126,7 @@ def predict_detected_faces(model, class_names: list[str], padding: float, image_
 
     model : keras.Model
         The trained model to use for predicting the cropped face images.
-        
+
     padding : float
         Relative amount of padding to apply around the detected face bounding box.
         For example, 0.2 will expand the bounding box by 20% on each side.
@@ -120,7 +149,8 @@ def predict_detected_faces(model, class_names: list[str], padding: float, image_
             face_rgb = cv2.cvtColor(face_cropped, cv2.COLOR_BGR2RGB)
 
             # Preprocess the face image for prediction
-            preprocessed = preprocess_image_array(face_rgb, target_size=(224, 224))
+            preprocessed = preprocess_image_array(
+                face_rgb, target_size=(224, 224))
 
             # Predict the feature
             prediction = model.predict(preprocessed)
@@ -131,7 +161,8 @@ def predict_detected_faces(model, class_names: list[str], padding: float, image_
 
             # Display the cropped face and predicted label
             plt.imshow(face_rgb)
-            plt.title(f"Prediction: {predicted_label} ({prediction[0][0]:.2f})")
+            plt.title(
+                f"Prediction: {predicted_label} ({prediction[0][0]:.2f})")
             plt.axis("off")
             plt.show()
         else:

@@ -4,48 +4,34 @@ import os
 import numpy as np
 import tensorflow as tf
 
-from tqdm import tqdm
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from Face_detection.face_detection import detect_face_from_frame
+from keras.models import Sequential
 
-model_names = [
-    "Gender_classification.keras",
-    "Beard_classification.keras",
-    "Haircolor_classification.keras",
-    "Nation_classification.keras",
-    "Glasses_classification.keras",
-]
 
-models_dir = "Models/"
-path_to_models = "/Users/tomlauth/Library/CloudStorage/GoogleDrive-santoxhd@gmail.com/Meine Ablage/Studium/Master/2 FS SoSe/Individual Profiling/Old_Models"
+def load_models(name: str, path_to_models: str) -> tuple[str, Sequential]:
+    """
+    Loads a TensorFlow Keras model from the specified model name.
 
-target_size = (224, 224)
+    Parameters
+    ----------
+    name : str
+        The name of the model to load.
+    path_to_models : str
+        The path of the model to load.
 
-# All labels for each feature with more than 2 values
-haircolor_labels = ["Black hair", "Blond hair", "Brown hair", "Gray hair"]
-nation_labels = ["Asian", "Black", "Indian", "Others", "White"]
+    Returns
+    -------
+    tuple
+        A tuple containing the model name and the loaded Keras model instance.
 
-if len(os.listdir(path_to_models)) == len(model_names):
+    """
+    model_path = os.path.join(path_to_models, name)
+    print(f"Loading the {name} model")
+    model = tf.keras.models.load_model(model_path)
+    print(f"Successfully loaded the {name} model")
 
-    models = {}
-
-    for model_name in model_names:
-        model_path = os.path.join(path_to_models, model_name)
-        print(f"Trying to load the {model_name} model...")
-        models[model_name] = tf.keras.models.load_model(model_path)
-        print(f"Successfully loaded the {model_name} model.")
-
-    print("All models loaded successfully!")
-
-    answer = input(
-        "Do you want to continue predicting with live video? (Y/N)").upper()
-    answer = input(
-        "Do you want to continue predicting with live video? (Y/N)").upper()
-
-    if answer == "Y":
-        pass
-    else:
-        exit(1)
-else:
-    print("There are not all .keras models in the directory. Please check it again!")
+    return name, model
 
 
 def preprocess_frame(
@@ -97,23 +83,17 @@ def classify_frame(frame: cv2.typing.MatLike) -> tuple[str, str, str, str, str]:
         - Nationality: A string representing the predicted nationality.
     """
 
-    # TODO: First let the face detection model detect a face on the live video
-    # feed. Then extract the detected face and use this as a "input image" for
-    # the other feature detection models
-
     frame_input = preprocess_frame(frame, target_size)
-    # beard_input = preprocess_frame(frame, target_size)
-    # haircolor_input = preprocess_frame(frame, target_size)
 
-    gender_prediction = models["Gender_classification.keras"].predict(
+    gender_prediction = models["Gender_classification"].predict(
         frame_input)
-    beard_prediction = models["Beard_classification.keras"].predict(
+    beard_prediction = models["Beard_classification"].predict(
         frame_input)
-    haircolor_prediction = models["Haircolor_classification.keras"].predict(
+    haircolor_prediction = models["Haircolor_classification"].predict(
         frame_input)
-    nation_prediction = models["Nation_classification.keras"].predict(
+    nation_prediction = models["Nation_classification"].predict(
         frame_input)
-    glasses_prediction = models["Glasses_classification.keras"].predict(
+    glasses_prediction = models["Glasses_classification"].predict(
         frame_input)
 
     gender = "Male" if gender_prediction[0][0] > 0.5 else "Female"
@@ -125,50 +105,110 @@ def classify_frame(frame: cv2.typing.MatLike) -> tuple[str, str, str, str, str]:
     return gender, gender_prediction[0][0], beard, beard_prediction[0][0], haircolor, glasses, glasses_prediction[0][0], nation
 
 
-# Try either 0 or 1, it depends on your OS
-cap = cv2.VideoCapture(1)
-cv2.namedWindow("Camera Window", cv2.WINDOW_NORMAL)
-cv2.resizeWindow("Camera Window", 640, 480)
+if __name__ == "__main__":
 
-if not cap.isOpened():
-    print("Error: Camera couldn't start")
-    exit(1)
-
-while True:
-    ret, frame = cap.read()
-
-    if not ret:
-        print("Error: There is no frame")
-        break
-
-    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-    gender, gender_accuracy, beard, beard_accuracy, haircolor, glasses, glasses_accuracy, nation = classify_frame(
-        rgb_frame)
-
-    # text = f"Gender: {gender}, Accuracy: {gender_accuracy:.1f}%, Beard: {beard}, Accuracy: {beard_accuracy:.1f}%, Haircolor: {haircolor}, Glasses: {glasses}, Accuracy: {glasses_accuracy:.1f}%, Nation: {nation}"
-    # cv2.putText(frame, text, (10, 30),
-    #             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-
-    lines = [
-        f"Gender: {gender}, Accuracy: {gender_accuracy:.1f}%",
-        f"Beard: {beard}, Accuracy: {beard_accuracy:.1f}%",
-        f"Haircolor: {haircolor}, Glasses: {glasses}, Accuracy: {glasses_accuracy:.1f}%",
-        f"Nation: {nation}"
+    # All the necessary variables
+    haircolor_labels = ["Black hair", "Blond hair", "Brown hair", "Gray hair"]
+    nation_labels = ["Asian", "Black", "Indian", "Others", "White"]
+    path_to_models = "saved_models/"
+    target_size = (224, 224)
+    models = {}
+    model_names = [
+        "Gender_classification",
+        "Beard_classification",
+        "Haircolor_classification",
+        "Nation_classification",
+        "Glasses_classification",
     ]
 
-    y0 = 30
-    dy = 35
+    # Parallel loading of the different models
+    with ThreadPoolExecutor(max_workers=len(model_names)) as executor:
+        futures = [executor.submit(load_models, name, path_to_models) for name in model_names]
+        for future in as_completed(futures):
+            name, model = future.result()
+            models[name] = model
 
-    for i, line in enumerate(lines):
-        y = y0 + i * dy
-        cv2.putText(frame, line, (10, y),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    print("All models loaded successfully!")
 
-    cv2.imshow("Camera Window", frame)
+    answer = input(
+        "Do you want to continue predicting with live video? (Y/N)").upper()
 
-    if cv2.waitKey(1) & 0xFF == ord("q"):
-        break
+    if answer == "Y":
 
-cap.release()
-cv2.destroyAllWindows()
+        # Try either 0 or 1, it depends on your OS
+        cap = cv2.VideoCapture(1)
+        cv2.namedWindow("Camera Window", cv2.WINDOW_NORMAL)
+        cv2.resizeWindow("Camera Window", 640, 480)
+
+        if not cap.isOpened():
+            print("Error: Camera couldn't start")
+            exit(1)
+
+        while True:
+            ret, frame = cap.read()
+
+            if not ret:
+                print("Error: There is no frame")
+                break
+
+            detected_face, face_box = detect_face_from_frame(
+                frame, padding=0.2)
+            # rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+            if detected_face is not None:
+                gender, gender_accuracy, beard, beard_accuracy, haircolor, glasses, glasses_accuracy, nation = classify_frame(
+                    detected_face)
+
+                x, y, w, h = face_box
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+                lines = [
+                    f"Gender: {gender}, Accuracy: {gender_accuracy:.2f}%",
+                    f"Beard: {beard}, Accuracy: {beard_accuracy:.2f}%",
+                    f"Haircolor: {haircolor}, Glasses: {glasses}, Accuracy: {glasses_accuracy:.1f}%",
+                    f"Nation: {nation}"
+                ]
+
+                y0 = 30
+                dy = 35
+
+                for i, line in enumerate(lines):
+                    y = y0 + i * dy
+                    cv2.putText(frame, line, (10, y),
+                                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            else:
+                cv2.putText(frame, "No face detected", (10, 30),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+
+            # gender, gender_accuracy, beard, beard_accuracy, haircolor, glasses, glasses_accuracy, nation = classify_frame(
+            # rgb_frame)
+            # gender, gender_accuracy = classify_frame(rgb_frame)
+
+            # text = f"Gender: {gender}, Accuracy: {gender_accuracy:.1f}%, Beard: {beard}, Accuracy: {beard_accuracy:.1f}%, Haircolor: {haircolor}, Glasses: {glasses}, Accuracy: {glasses_accuracy:.1f}%, Nation: {nation}"
+            # cv2.putText(frame, text, (10, 30),
+            #             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+            # lines = [
+            #     f"Gender: {gender}, Accuracy: {gender_accuracy:.1f}%",
+                # f"Beard: {beard}, Accuracy: {beard_accuracy:.1f}%",
+                # f"Haircolor: {haircolor}, Glasses: {glasses}, Accuracy: {glasses_accuracy:.1f}%",
+                # f"Nation: {nation}"
+            # ]
+
+            # y0 = 30
+            # dy = 35
+
+            # for i, line in enumerate(lines):
+            #     y = y0 + i * dy
+            #     cv2.putText(frame, line, (10, y),
+            #                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+            cv2.imshow("Camera Window", frame)
+
+            if cv2.waitKey(1) & 0xFF == ord("q"):
+                break
+
+        cap.release()
+        cv2.destroyAllWindows()
+    else:
+        exit(1)
