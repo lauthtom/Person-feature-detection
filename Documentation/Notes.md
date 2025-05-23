@@ -10,7 +10,7 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 - Komprimiertes format zum speichern der Modelle, sowie auch paralleles laden der Modelle (Mit parallelem laden: ~30 Sekunden, Ohne parallelem laden: ~4 Minuten)
 - Python skript erstellt, welches ein Gesicht aus einem Bild erkennen und extrahiert. Des Weiteren wird dieses Bild aufbereitet und weitergegeben für eine Vorhersage der jeweiligen KI-Modelle
 - Bild Format (JPG) anschauen, ob das so gut für die Eingabe ist und auch später für die Data Augmentierung
-    - -> Laut der Recherche, wandelt Tensorflow die Bilder in Tensoren (Mehrdimensionale Arrays) um, daher ist das Dateiformat nur relevant, wenn die Bilder geladen werden sollen.
+    - -> JPG hat einen leichten Qualitäts verlust durch die verlustbehaftete Kompression. PNG wäre hier eine verlustfreiere Alternative, aber dafür sind die Dateien deutlich größer. Für diesen Anwendungsfall ist JPG aber ausreichend.
 - Face Detection in einem Live Video testen (Funktioniert - kann auch vorgeführt werden)
 
 ### TODO:
