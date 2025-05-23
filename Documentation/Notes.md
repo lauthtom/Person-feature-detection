@@ -7,7 +7,7 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 
 ### Fortschritt
 - Dokumentation des alten Stands (Video über die Performance/Genauigkeit über das Live Video)
-- Komprimiertes format zum speichern der Modelle, sowie auch paralleles laden der Modelle (Mit parallelem laden: 0m29.292s, Ohne parallelem laden: ~4 Minuten)
+- Komprimiertes format zum speichern der Modelle, sowie auch paralleles laden der Modelle (Mit parallelem laden: ~30 Sekunden, Ohne parallelem laden: ~4 Minuten)
 - Python skript erstellt, welches ein Gesicht aus einem Bild erkennen und extrahiert. Des Weiteren wird dieses Bild aufbereitet und weitergegeben für eine Vorhersage der jeweiligen KI-Modelle
 - Bild Format (JPG) anschauen, ob das so gut für die Eingabe ist und auch später für die Data Augmentierung
     - -> Laut der Recherche, wandelt Tensorflow die Bilder in Tensoren (Mehrdimensionale Arrays) um, daher ist das Dateiformat nur relevant, wenn die Bilder geladen werden sollen.
