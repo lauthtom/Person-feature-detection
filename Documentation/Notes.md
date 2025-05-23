@@ -33,3 +33,4 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 
 
 ### Fragen
+- Wie kann ich am effektivsten die Performance messen/dokumentieren? Sowohl bei dem Live Video, als auch später bei der Data Augmentierung?
