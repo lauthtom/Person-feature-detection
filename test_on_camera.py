@@ -9,7 +9,7 @@ from Face_detection.face_detection import detect_face_from_frame
 from keras.models import Sequential
 
 
-def load_models(name: str) -> tuple[str, Sequential]:
+def load_models(name: str, path_to_models: str) -> tuple[str, Sequential]:
     """
     Loads a TensorFlow Keras model from the specified model name.
 
@@ -17,6 +17,8 @@ def load_models(name: str) -> tuple[str, Sequential]:
     ----------
     name : str
         The name of the model to load.
+    path_to_models : str
+        The path of the model to load.
 
     Returns
     -------
@@ -121,7 +123,7 @@ if __name__ == "__main__":
 
     # Parallel loading of the different models
     with ThreadPoolExecutor(max_workers=len(model_names)) as executor:
-        futures = [executor.submit(load_models, name) for name in model_names]
+        futures = [executor.submit(load_models, name, path_to_models) for name in model_names]
         for future in as_completed(futures):
             name, model = future.result()
             models[name] = model
