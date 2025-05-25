@@ -111,13 +111,14 @@ def download_datasets(download_urls_with_output_path: Dict[str, str]) -> None:
 if __name__ == "__main__":
     download_urls_with_output_path = {"https://www.kaggle.com/api/v1/datasets/download/jessicali9530/celeba-dataset": os.path.expanduser("~/Person-feature-detection/Datasets/celeba-dataset.zip"), "https://www.kaggle.com/api/v1/datasets/download/jangedoo/utkface-new": os.path.expanduser("~/Person-feature-detection/Datasets/utkface-dataset.zip")}
     
+    # Downloads the datasets
     download_datasets(download_urls_with_output_path)
     
+    # Extracts the datasets
     for _, output_path in download_urls_with_output_path.items():
         extract_path = Path(output_path).with_suffix('')
         extract_dataset(output_path, extract_path)
     
-    # TODO: Eventuell in eine eigene Methode auslagern
     path_to_notebooks = ["gender/ProcessGenderImages.ipynb", "beard/ProcessBeardImages.ipynb", "glasses/ProcessGlassesImages.ipynb", "haircolor/ProcessHaircolorImages.ipynb", "nation/ProcessNationImages.ipynb"]
 
     for notebook in path_to_notebooks:
