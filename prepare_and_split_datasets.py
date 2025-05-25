@@ -12,23 +12,23 @@ def run_notebook(notebook_path: str) -> None:
     Executes a Jupyter notebook at the specified path.
     This function reads a Jupyter notebook file, executes all its cells.
     If an error occurs during execution, it prints the error message and re-raises the exception.
-    
+
     Parameters
     ----------
     notebook_path : str
         The file path to the Jupyter notebook to be executed.
-        
+
     Raises
     ------
     Exception
         If an error occurs during the execution of the notebook.
     """
-    
+
     with open(notebook_path, 'r', encoding='utf-8') as f:
         nb = nbformat.read(f, as_version=4)
-    
+
     ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
-    
+
     try:
         ep.preprocess(nb, {'metadata': {'path': '.'}})
         print(f"Notebook: {notebook_path} was executed successfully!")
@@ -42,19 +42,19 @@ def extract_dataset(output_path: str, extract_path: str) -> None:
     Extracts a dataset from a zip file if it has not already been extracted.
     Checks whether the specified extraction directory exists and is non-empty.
     If not, extracts the contents of the zip file at `output_path` into `extract_path`.
-    
+
     Parameters
     ----------
     output_path : str
         The file path to the zip file containing the dataset.
     extract_path : str
         The directory path where the dataset should be extracted.
-        
+
     Returns
     -------
     None
     """
-    
+
     if not os.path.exists(extract_path) or not os.listdir(extract_path):
         print(f"Dataset {output_path} is not extracted!")
 
@@ -67,7 +67,7 @@ def extract_dataset(output_path: str, extract_path: str) -> None:
             print(f"Error during extraction: {e}")
     else:
         print(f"Dataset {output_path} is alreay extracted!")
-    
+
 
 def download_datasets(download_urls_with_output_path: Dict[str, str]) -> None:
     """
@@ -88,7 +88,7 @@ def download_datasets(download_urls_with_output_path: Dict[str, str]) -> None:
     ------
     Prints error messages if the download fails or if an unknown error occurs.
     """
-    
+
     for download_url, output_path in download_urls_with_output_path.items():
         if os.path.exists(output_path):
             print(f"Dataset already exists at {output_path} - skipping download.")
@@ -107,22 +107,21 @@ def download_datasets(download_urls_with_output_path: Dict[str, str]) -> None:
                 print(f"Error ocured while trying to download: {e}")
             except Exception as e:
                 print(f"Unknown error: {e}")
-        
+
 if __name__ == "__main__":
     download_urls_with_output_path = {"https://www.kaggle.com/api/v1/datasets/download/jessicali9530/celeba-dataset": os.path.expanduser("~/Person-feature-detection/Datasets/celeba-dataset.zip"), "https://www.kaggle.com/api/v1/datasets/download/jangedoo/utkface-new": os.path.expanduser("~/Person-feature-detection/Datasets/utkface-dataset.zip")}
-    
+
     # Downloads the datasets
     download_datasets(download_urls_with_output_path)
-    
+
     # Extracts the datasets
     for _, output_path in download_urls_with_output_path.items():
         extract_path = Path(output_path).with_suffix('')
         extract_dataset(output_path, extract_path)
-    
+
     path_to_notebooks = ["gender/ProcessGenderImages.ipynb", "beard/ProcessBeardImages.ipynb", "glasses/ProcessGlassesImages.ipynb", "haircolor/ProcessHaircolorImages.ipynb", "nation/ProcessNationImages.ipynb"]
 
     for notebook in path_to_notebooks:
         print(f"Executing notebook: {notebook}")
         run_notebook(notebook_path=notebook)
-    
-   
+
