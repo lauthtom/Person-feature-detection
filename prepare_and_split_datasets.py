@@ -66,7 +66,7 @@ def extract_dataset(output_path: str, extract_path: str) -> None:
         except Exception as e:
             print(f"Error during extraction: {e}")
     else:
-        print(f"Dataset {output_path} is alreay extracted!")
+        print(f"Dataset {output_path} is already extracted!")
 
 
 def download_datasets(download_urls_with_output_path: Dict[str, str]) -> None:
