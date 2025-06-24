@@ -15,10 +15,11 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 
 ### TODO:
 - Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (**In Bearbeitung**)
-- Performance der Face Detection dokumentieren, eventuell in eine Datei schreiben (Oder hier auch wieder diesselben Bilder Spots nehmen, wie auch bei der Dokumentation der Prediction ohne Face Detection)? (**In Bearbeitung**)
-- Skript erstellen, welches automatisiert den Datensatz für die einzelnen KI-Modelle vorbereitet (**In Bearbeitung**)
+- Skript erstellen, welches automatisiert den Datensatz für die einzelnen KI-Modelle vorbereitet (**Erledigt**)
 - Skript anpassen, um statische Bilder zu testen (**In Bearbeitung**)
-- Verschiedene Data Augmentierungs arten testen um die Performance eventuell nochmal zu verbessern
+- Verschiedene Data Augmentierungs arten testen um die Performance eventuell nochmal zu verbessern (Data Augmenatation Pipeline?)
+- Evaluierungs Datensatz erstellen um später daraus Prozentsätze zu erstellen, wie viel besser oder schlechter das ist (**In Bearbeitung**)
+- ⁠Erklären können, wie ein Bild bspw. bei dem Gender Modell verarbeitet wird, also Eingabe Größe etc.
 
 
 ### Ziele/Optimierungen für IPROF
