@@ -15,8 +15,8 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 
 ### TODO:
 - Skript erstellen, welches automatisiert den Datensatz für die einzelnen KI-Modelle vorbereitet (**Erledigt**)
+- Skript anpassen, um statische Bilder zu testen (**Erledigt**)
 - Das speichern der einzelnen Modelle in den python Notebooks anpassen (saved_models/) (**In Bearbeitung**)
-- Skript anpassen, um statische Bilder zu testen (**In Bearbeitung**)
 - Verschiedene Data Augmentierungs arten testen um die Performance eventuell nochmal zu verbessern (Data Augmenatation Pipeline?) (**In Bearbeitung**)
 - Evaluierungs Datensatz erstellen um später daraus Prozentsätze zu erstellen, wie viel besser oder schlechter das ist (**In Bearbeitung**)
 - Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (**In Bearbeitung**)
