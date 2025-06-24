@@ -10,14 +10,14 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 - Komprimiertes format zum speichern der Modelle, sowie auch paralleles laden der Modelle (Mit parallelem laden: ~30 Sekunden, Ohne parallelem laden: ~4 Minuten)
 - Python skript erstellt, welches ein Gesicht aus einem Bild erkennen und extrahiert. Des Weiteren wird dieses Bild aufbereitet und weitergegeben für eine Vorhersage der jeweiligen KI-Modelle
 - Bild Format (JPG) anschauen, ob das so gut für die Eingabe ist und auch später für die Data Augmentierung
-    - -> JPG hat einen leichten Qualitäts verlust durch die verlustbehaftete Kompression. PNG wäre hier eine verlustfreiere Alternative, aber dafür sind die Dateien deutlich größer. Für diesen Anwendungsfall ist JPG aber ausreichend.
+    - JPG hat einen leichten Qualitäts verlust durch die verlustbehaftete Kompression. PNG wäre hier eine verlustfreiere Alternative, aber dafür sind die Dateien deutlich größer. Für diesen Anwendungsfall ist JPG aber ausreichend.
 - Face Detection in einem Live Video testen (Funktioniert - kann auch vorgeführt werden)
 
 ### TODO:
 - Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (**In Bearbeitung**)
 - Skript erstellen, welches automatisiert den Datensatz für die einzelnen KI-Modelle vorbereitet (**Erledigt**)
 - Skript anpassen, um statische Bilder zu testen (**In Bearbeitung**)
-- Verschiedene Data Augmentierungs arten testen um die Performance eventuell nochmal zu verbessern (Data Augmenatation Pipeline?)
+- Verschiedene Data Augmentierungs arten testen um die Performance eventuell nochmal zu verbessern (Data Augmenatation Pipeline?) (**In Bearbeitung**)
 - Evaluierungs Datensatz erstellen um später daraus Prozentsätze zu erstellen, wie viel besser oder schlechter das ist (**In Bearbeitung**)
 - ⁠Erklären können, wie ein Bild bspw. bei dem Gender Modell verarbeitet wird, also Eingabe Größe etc.
 
