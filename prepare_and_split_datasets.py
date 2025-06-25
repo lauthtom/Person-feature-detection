@@ -109,6 +109,7 @@ def download_datasets(download_urls_with_output_path: Dict[str, str]) -> None:
                 print(f"Unknown error: {e}")
 
 if __name__ == "__main__":
+    # The paths of the datasets must always be adjusted if necessary
     download_urls_with_output_path = {"https://www.kaggle.com/api/v1/datasets/download/jessicali9530/celeba-dataset": os.path.expanduser("~/Person-feature-detection/Datasets/celeba-dataset.zip"), "https://www.kaggle.com/api/v1/datasets/download/jangedoo/utkface-new": os.path.expanduser("~/Person-feature-detection/Datasets/utkface-dataset.zip")}
 
     # Downloads the datasets
