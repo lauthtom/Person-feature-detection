@@ -3,8 +3,9 @@
 
 # Jupyter notebook checkpoints
 .ipynb_checkpoints/
+**/.ipynb_checkpoints/
 gender/.ipynb_checkpoints/
-beard/.ipynb_checkpoints/
+beard/.ipynb_checkpoints/*
 nation/.ipynb_checkpoints/
 haircolor/.ipynb_checkpoints/
 
