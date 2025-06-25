@@ -72,14 +72,9 @@ if __name__ == "__main__":
                 img_array = img_array / 255.0
                 img_array = np.expand_dims(img_array, axis=0)
 
-                # gender, gender_accuracy, beard, beard_accuracy, haircolor, glasses, glasses_accuracy, nation = classify_frame(
-                #     img_array)
-
                 img_detected_face = detect_face(
                     image_path=image_path, padding=0.2)
 
-                # TODO: Das hier ist noch nicht fertig, Bilder muessen irgendwie,
-                # entweder gleichzeitig angezeigt werden, oder nacheinander
                 if img_detected_face is not None:
                     if isinstance(img_detected_face, np.ndarray):
                         img_detected_face = Image.fromarray(img_detected_face)
@@ -88,57 +83,23 @@ if __name__ == "__main__":
                     img_array = img_to_array(img_detected_face)
                     img_array = img_array / 255.0
                     img_array = np.expand_dims(img_array, axis=0)
-                    gender, gender_accuracy, beard, beard_accuracy, haircolor, glasses, glasses_accuracy, nation = classify_frame(
-                        img_array)
 
-                results.append((img, gender, beard, glasses, haircolor, nation))
+                    gender, gender_acc, beard, beard_acc, haircolor, glasses, glasses_acc, nation = classify_frame(img_array)
 
-                n = len(results)
-                cols = 3
-                rows = (n + cols - 1) // cols
-                fig, axes = plt.subplots(
-                    rows, cols, figsize=(5 * cols, 5 * rows))
-                axes = axes.flatten()
-
-                for idx, (img, gender, beard, glasses, haircolor, nation) in enumerate(results):
-                    axes[idx].imshow(img)
-                    axes[idx].axis("off")
-                    axes[idx].set_title(
-                        f"Gender: {gender}\nBeard: {beard}\nGlasses: {glasses}\nHaircolor: {haircolor}\nNation: {nation}",
-                        fontsize=10, loc='left'
+                    plt.figure(figsize=(5, 5))
+                    plt.imshow(img)
+                    plt.axis("off")
+                    plt.title(
+                        f"Gender: {gender} ({gender_acc*100:.1f}%)\n"
+                        f"Beard: {beard} ({beard_acc*100:.1f}%)\n"
+                        f"Glasses: {glasses} ({glasses_acc*100:.1f}%)\n"
+                        f"Haircolor: {haircolor}\n"
+                        f"Nation: {nation}",
+                        fontsize=14,
+                        loc="center"
                     )
-
-                for idx in range(len(results), len(axes)):
-                    axes[idx].axis("off")
-
-                plt.tight_layout()
-                plt.show()
-
-                # FIXME: ALTER CODE!!!
-                # image_width = img.size[0]
-                # image_height = img.size[1]
-
-                # # plt.figure(figsize=(9, 9))
-
-                # dpi = 100
-
-                # figsize = (image_width / dpi, image_height / dpi)
-
-                # fig = plt.figure(figsize=figsize, dpi=dpi)
-                # ax = fig.add_axes([0, 0, 1, 1])
-                # ax.imshow(img)
-                # ax.axis("off")
-
-                # ax.set_title(
-                #     f"Gender: {gender}\nBeard: {beard}\nGlasses: {glasses}\nHaircolor: {haircolor}\nNation: {nation}",
-                #     fontsize=10,
-                #     loc='left'
-                # )
-
-                # print(
-                #     f"IMAGE: {img}\nGender: {gender}, accuracy: {gender_accuracy:.2f}\nBeard: {beard}, accuracy: {beard_accuracy:.2f} glasses: {glasses}, accuracy: {glasses_accuracy:.2f} haircolor: {haircolor}\nNation: {nation}")
-
-                # plt.show()
+                    plt.tight_layout()
+                    plt.show()
             else:
                 print(f"Skipped {image}, because it's not a image")
     else:

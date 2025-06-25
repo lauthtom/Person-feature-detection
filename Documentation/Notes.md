@@ -14,12 +14,13 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 - Face Detection in einem Live Video testen (Funktioniert - kann auch vorgeführt werden)
 
 ### TODO:
-- Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (**In Bearbeitung**)
 - Skript erstellen, welches automatisiert den Datensatz für die einzelnen KI-Modelle vorbereitet (**Erledigt**)
-- Das speichern der einzelnen Modell in den python notebooks noch anpassen (**In Bearbeitung**)
-- Skript anpassen, um statische Bilder zu testen (**In Bearbeitung**)
+- Skript anpassen, um statische Bilder zu testen (**Erledigt**)
+- Das speichern der einzelnen Modelle in den python Notebooks anpassen (saved_models/) (**In Bearbeitung**)
 - Verschiedene Data Augmentierungs arten testen um die Performance eventuell nochmal zu verbessern (Data Augmenatation Pipeline?) (**In Bearbeitung**)
 - Evaluierungs Datensatz erstellen um später daraus Prozentsätze zu erstellen, wie viel besser oder schlechter das ist (**In Bearbeitung**)
+- Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (**In Bearbeitung**)
+- Wenn noch Zeit ist, eventuell Hyperparameter Tuning betreiben (Wäre interessant zu sehen, ob das noch verbesserungen bringt, oder nicht)
 - ⁠Erklären können, wie ein Bild bspw. bei dem Gender Modell verarbeitet wird, also Eingabe Größe etc.
 
 
