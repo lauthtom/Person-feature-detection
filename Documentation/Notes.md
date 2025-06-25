@@ -21,7 +21,7 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 - Evaluierungs Datensatz erstellen um später daraus Prozentsätze zu erstellen, wie viel besser oder schlechter das ist (**In Bearbeitung**)
 - Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (**In Bearbeitung**)
 - Wenn noch Zeit ist, eventuell Hyperparameter Tuning betreiben (Wäre interessant zu sehen, ob das noch verbesserungen bringt, oder nicht)
-- ⁠Erklären können, wie ein Bild bspw. bei dem Gender Modell verarbeitet wird, also Eingabe Größe etc.
+- ⁠Erklären können, wie ein Bild bspw. bei dem Gender Modell verarbeitet wird, also Eingabe Größe etc. (Wäre vielleicht auch ein wichtiger Punkt in der Präsentation!)
 
 
 ### Ziele/Optimierungen für IPROF
@@ -33,7 +33,3 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 3. Verschiedene Data Augmentierungs Arten ausprobieren und evaluieren. Kan man das ganze eventuell automatisieren (Pipeline)?
     - Genauigkeiten der Modelle sollen hoffentlich dadurch besser werden
     - Am Ende könnte man es noch vergleichen?
-
-
-### Fragen
-- Wie kann ich am effektivsten die Performance messen/dokumentieren? Sowohl bei dem Live Video, als auch später bei der Data Augmentierung?
