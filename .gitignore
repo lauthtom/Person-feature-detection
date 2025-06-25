@@ -1,2 +1,17 @@
 # Ignore MacOS File
 .DS_Store
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+
+# Python Bytecode
+__pycache__/
+
+# IDE-spezifische Dateien (z.B. VS Code)
+.vscode/
+.idea/
+
+# System-spezifische Dateien
+.DS_Store
+Thumbs.db
