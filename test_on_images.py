@@ -12,6 +12,32 @@ from Face_detection.face_detection import detect_face
 
 
 def classify_frame(image: np.ndarray) -> tuple[str, str, str, str, str]:
+    """
+    Classifies various attributes from an input image using the trained models.
+
+    Parameters
+    ----------
+    image : np.ndarray
+        The input image as a NumPy array to be classified.
+
+    Returns
+    -------
+    tuple of str
+        A tuple containing the following predicted attributes:
+            - gender (str): Predicted gender ("Male" or "Female").
+            - gender_score (float): Accuracy for gender prediction.
+            - beard (str): Predicted beard status ("No Beard" or "Beard").
+            - beard_score (float): Accuracy for beard prediction.
+            - haircolor (str): Predicted hair color label.
+            - glasses (str): Predicted glasses status ("No Glasses" or "Glasses").
+            - glasses_score (float): Accuracy for glasses prediction.
+            - nation (str): Predicted nationality label.
+
+    Notes
+    -----
+    This function assumes that the required models and label lists
+    (`models`, `haircolor_labels`, `nation_labels`) are defined in the global scope.
+    """
     gender_prediction = models["Gender_classification"].predict(
         image)
     beard_prediction = models["Beard_classification"].predict(
@@ -84,7 +110,8 @@ if __name__ == "__main__":
                     img_array = img_array / 255.0
                     img_array = np.expand_dims(img_array, axis=0)
 
-                    gender, gender_acc, beard, beard_acc, haircolor, glasses, glasses_acc, nation = classify_frame(img_array)
+                    gender, gender_acc, beard, beard_acc, haircolor, glasses, glasses_acc, nation = classify_frame(
+                        img_array)
 
                     plt.figure(figsize=(5, 5))
                     plt.imshow(img)

@@ -1,7 +1,7 @@
 # Person feature detection
 Person feature detection (entstanden aus dem Modul Computer Vision letztes Semester) sind unterschiedliche KI-Modelle die Eigenschaften im Gesicht von Personen erkennen sollen, sowohl auf Bildern als auch in einem live Video.
 
-Bisher erkennbare Eigenschaften sind: Geschlecht, (Herkunft), Haarfarbe, Bart oder kein Bart, Brille oder keine Brille
+Bisher erkennbare Eigenschaften sind: Geschlecht, Herkunft, Haarfarbe, Bart oder kein Bart, Brille oder keine Brille
 
 Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selber geschrieben/"entdeckt" wurde.
 
