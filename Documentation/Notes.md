@@ -1,7 +1,7 @@
 # Person feature detection
 Person feature detection (entstanden aus dem Modul Computer Vision letztes Semester) sind unterschiedliche KI-Modelle die Eigenschaften im Gesicht von Personen erkennen sollen, sowohl auf Bildern als auch in einem live Video.
 
-Bisher erkennbare Eigenschaften sind: Geschlecht, Herkunft, Haarfarbe, Bart oder kein Bart, Brille oder keine Brille
+Bisher erkennbare Eigenschaften sind: Geschlecht, (Herkunft), Haarfarbe, Bart oder kein Bart, Brille oder keine Brille
 
 Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selber geschrieben/"entdeckt" wurde.
 
@@ -12,6 +12,7 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 - Bild Format (JPG) anschauen, ob das so gut für die Eingabe ist und auch später für die Data Augmentierung
     - JPG hat einen leichten Qualitäts verlust durch die verlustbehaftete Kompression. PNG wäre hier eine verlustfreiere Alternative, aber dafür sind die Dateien deutlich größer. Für diesen Anwendungsfall ist JPG aber ausreichend.
 - Face Detection in einem Live Video testen (Funktioniert - kann auch vorgeführt werden)
+- Des Weitern wurde eine in Early Stopping eine Methode "restore_best_weights=True" eingeführt, die die besten Gewichte während des gesamten Trainingsprozess speichert. Somit bekommt man am Ende des Training ein Modell, welches garantiert nicht während dem Training Overfitting betrieben hat.
 
 ### TODO:
 - Skript erstellen, welches automatisiert den Datensatz für die einzelnen KI-Modelle vorbereitet (**Erledigt**)
