@@ -1,5 +1,6 @@
 import cv2
 import glob
+import mediapipe as mp
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -42,7 +43,7 @@ def detect_face(image_path: str, padding: float) -> np.ndarray | None:
     )
 
     # padding = 0.2
-
+    """
     for (x, y, w, h) in faces:
         # Expand bounding box
         x_pad = int(padding * w)
@@ -55,9 +56,52 @@ def detect_face(image_path: str, padding: float) -> np.ndarray | None:
 
         face_cropped = img[y_new:y_new + h_new, x_new:x_new + w_new]
         return face_cropped
+    """
+    for (x, y, w, h) in faces:
+        x_pad = int(padding * w)
+        y_pad = int(padding * h)
+
+        # Haarregion nach oben ausdehnen
+        hair_extension = int(h * 0.4)
+
+        x_new = max(x - x_pad, 0)
+        y_new = max(y - y_pad - hair_extension, 0)
+        w_new = min(w + 2 * x_pad, img.shape[1] - x_new)
+        h_new = min(h + 2 * y_pad + hair_extension, img.shape[0] - y_new)
+
+        face_with_hair = img[y_new:y_new + h_new, x_new:x_new + w_new]
+        return face_with_hair
 
     # No face detected
     return None
+
+
+def detect_face_mediapipe(image_path: str, hair_extension_ratio=0.7):
+    img = cv2.imread(image_path)
+    if img is None:
+        raise FileNotFoundError(f"Image not found: {image_path}")
+    
+    mp_face_detection = mp.solutions.face_detection
+    with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.6) as face_detection:
+        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        results = face_detection.process(img_rgb)
+
+        if not results.detections:
+            return None
+
+        detection = results.detections[0]
+        bbox = detection.location_data.relative_bounding_box
+        h, w, _ = img.shape
+
+        x = int(bbox.xmin * w)
+        y = int(bbox.ymin * h)
+        w_box = int(bbox.width * w)
+        h_box = int(bbox.height * h)
+
+        y = max(0, y - int(h_box * hair_extension_ratio))
+        h_box = min(h - y, h_box + int(h_box * hair_extension_ratio))
+
+        return img[y:y + h_box, x:x + w_box]
 
 
 def detect_face_from_frame(frame: np.ndarray) -> tuple[np.ndarray, tuple[int, int, int, int]] | tuple[None, None]:
