@@ -60,8 +60,26 @@ def detect_face(image_path: str, padding: float) -> np.ndarray | None:
     return None
 
 
-def detect_face_from_frame(frame: np.ndarray, padding: float = 0.2) -> tuple[np.ndarray, tuple[int, int, int, int]] | tuple[None, None]:
-    # TODO: Documentation!!!
+def detect_face_from_frame(frame: np.ndarray) -> tuple[np.ndarray, tuple[int, int, int, int]] | tuple[None, None]:
+    """
+    Detects a face in a given image frame and returns the cropped face region along with its bounding box coordinates.
+
+    Parameters
+    ----------
+    frame : np.ndarray
+        The input image frame in which to detect a face. Expected to be a color image (BGR).
+
+    Returns
+    -------
+    tuple[np.ndarray, tuple[int, int, int, int]] or tuple[None, None]
+        If a face is detected, returns a tuple containing:
+            - face_cropped : np.ndarray
+                The cropped image of the detected face region.
+            - (x, y, w, h) : tuple of int
+                The coordinates (x, y) of the top-left corner and the width (w) and height (h) of the bounding box around the face.
+        If no face is detected, returns (None, None)
+    """
+    
     gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     face_classifier = cv2.CascadeClassifier(
