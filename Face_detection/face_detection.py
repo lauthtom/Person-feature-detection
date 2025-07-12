@@ -130,7 +130,7 @@ def preprocess_image_array(img_array: np.ndarray, target_size: tuple = (224, 224
     return img
 
 
-def predict_detected_faces(model, class_names: list[str], padding: float, image_directory: str = '../Images/*.jpg') -> None:
+def predict_detected_faces(model, class_names: list[str], padding: float, categorical: bool, image_directory: str = '../Images/*.jpg') -> None:
     """
     Predicts the gender of faces detected in images from a specified directory.
 
@@ -172,15 +172,20 @@ def predict_detected_faces(model, class_names: list[str], padding: float, image_
 
             # Predict the feature
             prediction = model.predict(preprocessed)
+            predicted_label_index = 0
 
             # Convert prediction to label
-            predicted_labels = (prediction > 0.5).astype(int).flatten()
-            predicted_label = class_names[predicted_labels[0]]
-
+            if categorical:
+                predicted_label_index = np.argmax(prediction, axis=1)[0]
+                predicted_label = class_names[predicted_label_index]
+            else:
+                predicted_labels = (prediction > 0.5).astype(int).flatten()
+                predicted_label = class_names[predicted_labels[0]]
+            
+            value = prediction[0][0] if categorical else prediction[0][predicted_label_index]
             # Display the cropped face and predicted label
             plt.imshow(face_rgb)
-            plt.title(
-                f"Prediction: {predicted_label} ({prediction[0][0]:.2f})")
+            plt.title(f"Prediction: {predicted_label} {value}")
             plt.axis("off")
             plt.show()
         else:
