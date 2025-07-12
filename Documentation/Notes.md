@@ -18,10 +18,10 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 - Skript erstellen, welches automatisiert den Datensatz für die einzelnen KI-Modelle vorbereitet (**Erledigt**)
 - Skript anpassen, um statische Bilder zu testen (**Erledigt**)
 - Das speichern der einzelnen Modelle in den python Notebooks anpassen (saved_models/) (**Erledigt**)
-- Verschiedene Data Augmentierungs arten testen um die Performance eventuell nochmal zu verbessern (Data Augmenatation Pipeline?) (**In Bearbeitung**)
-- Evaluierungs Datensatz erstellen um später daraus Prozentsätze zu erstellen, wie viel besser oder schlechter das ist (**In Bearbeitung**)
-- ⁠Erklären können, wie ein Bild bspw. bei dem Gender Modell verarbeitet wird, also Eingabe Größe etc. (**In Bearbeitung**)
-- Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (**In Bearbeitung**)
+- Verschiedene Data Augmentierungs arten testen um die Performance eventuell nochmal zu verbessern (Data Augmenatation Pipeline?) (**Erledigt**)
+- Evaluierungs Datensatz erstellen um später daraus Prozentsätze zu erstellen, wie viel besser oder schlechter das ist (**Erledigt**)
+- ⁠Erklären können, wie ein Bild bspw. bei dem Gender Modell verarbeitet wird, also Eingabe Größe etc. -> Ist eine gute Idee für die Präsentation (**In Bearbeitung**)
+- Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (**Erledigt**)
 - Wenn noch Zeit ist, eventuell Hyperparameter Tuning betreiben (Wäre interessant zu sehen, ob das noch verbesserungen bringt, oder nicht)
 - Es müssen die Modelle jetzt noch über die Data Augmenation Pipeline verbessert werden und dann auch noch im richtigen Verzeichnis 'With_DA_Pipeline' speichern (Aktuell dauert ein Durchlauf mit der Pipeline 14 Minuten, da wir das ganze 10 mal machen, ergibt es eine Gesamtzeit von 2:20h pro Modell)
 
@@ -32,7 +32,7 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 2. Live video erkennung präziser machen, indem ein Face detection Model im Hintergrund mitläuft und erst im live feed ein Gesicht extrahiert und dieses dann im Anschluss als Input Bild für die KI-Modelle zum vorhersagen benutzt. (**Erledigt**)
     - Aktuell wird nämlich im live video das gesamte Bild als Input benutzt und das führt zu Problemen, wie das die Modelle keine klaren und sicheren Vorhersagen treffen können. (**Erledigt**)
 
-3. Verschiedene Data Augmentierungs Arten ausprobieren und evaluieren. Kan man das ganze eventuell automatisieren (Pipeline)?
+3. Verschiedene Data Augmentierungs Arten ausprobieren und evaluieren. Kan man das ganze eventuell automatisieren (Pipeline)? (**In Bearbeitung**)
     - Genauigkeiten der Modelle sollen hoffentlich dadurch besser werden
     - Am Ende könnte man es noch vergleichen?
 
