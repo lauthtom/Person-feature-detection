@@ -124,29 +124,59 @@ def detect_face_from_frame(frame: np.ndarray) -> tuple[np.ndarray, tuple[int, in
         If no face is detected, returns (None, None)
     """
     
-    gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # Tried other classifier from google
+    mp_face_detection = mp.solutions.face_detection
+    with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.6) as face_detection:
+        img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        results = face_detection.process(img_rgb)
 
-    face_classifier = cv2.CascadeClassifier(
-        cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-    )
+        if not results.detections:
+            return None, None
 
-    faces = face_classifier.detectMultiScale(
-        gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(40, 40)
-    )
+        detection = results.detections[0]
+        bbox = detection.location_data.relative_bounding_box
+        h, w, _ = frame.shape
 
-    for (x, y, w, h) in faces:
-        x_pad = int(0.1 * w)
-        y_pad = int(0.3 * h)
+        x = int(bbox.xmin * w)
+        y = int(bbox.ymin * h)
+        w_box = int(bbox.width * w)
+        h_box = int(bbox.height * h)
 
-        x_new = max(x - x_pad, 0)
-        y_new = max(y - y_pad, 0)
-        w_new = min(w + 2 * x_pad, frame.shape[1] - x_new)
-        h_new = min(h + 2 * y_pad, frame.shape[0] - y_new)
+        hair_extension_ratio = 0.3
+        y = max(0, y - int(h_box * hair_extension_ratio))
+        h_box = min(h - y, h_box + int(h_box * hair_extension_ratio))
+        x = max(0, x)
+        w_box = min(w - x, w_box)
 
-        face_cropped = frame[y_new:y_new + h_new, x_new:x_new + w_new]
-        return face_cropped, (x_new, y_new, w_new, h_new)
-
+        face_cropped = frame[y:y + h_box, x:x + w_box]
+        return face_cropped, (x, y, w_box, h_box)
+    
     return None, None
+
+    
+    # gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    # face_classifier = cv2.CascadeClassifier(
+    #     cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
+    # )
+
+    # faces = face_classifier.detectMultiScale(
+    #     gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(40, 40)
+    # )
+    
+    # for (x, y, w, h) in faces:
+    #     x_pad = int(0.1 * w)
+    #     y_pad = int(0.3 * h)
+
+    #     x_new = max(x - x_pad, 0)
+    #     y_new = max(y - y_pad, 0)
+    #     w_new = min(w + 2 * x_pad, frame.shape[1] - x_new)
+    #     h_new = min(h + 2 * y_pad, frame.shape[0] - y_new)
+
+    #     face_cropped = frame[y_new:y_new + h_new, x_new:x_new + w_new]
+    #     return face_cropped, (x_new, y_new, w_new, h_new)
+
+    # return None, None
 
 
 
