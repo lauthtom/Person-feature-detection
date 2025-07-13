@@ -234,7 +234,8 @@ def predict_detected_faces(model, class_names: list[str], padding: float, catego
 
     for i, image_path in enumerate(images):
         # Detect face and crop the face region
-        face_cropped = detect_face(image_path, padding)
+        # face_cropped = detect_face(image_path, padding)
+        face_cropped = detect_face_mediapipe(image_path)
 
         if face_cropped is not None:
             # Convert the face to RGB for displaying
