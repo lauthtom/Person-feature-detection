@@ -152,7 +152,7 @@ if __name__ == "__main__":
                 break
 
             detected_face, face_box = detect_face_from_frame(
-                frame, padding=0.2)
+                frame)
             # rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
             if detected_face is not None:
