@@ -20,7 +20,7 @@ Das besondere dabei ist dass für die Eigenschaft Geschlecht ein KI-Modell selbe
 - Das speichern der einzelnen Modelle in den python Notebooks anpassen (saved_models/) (**Erledigt**)
 - Verschiedene Data Augmentierungs arten testen um die Performance eventuell nochmal zu verbessern (Data Augmenatation Pipeline?) (**Erledigt**)
 - Evaluierungs Datensatz erstellen um später daraus Prozentsätze zu erstellen, wie viel besser oder schlechter das ist (**Erledigt**)
-- ⁠Erklären können, wie ein Bild bspw. bei dem Gender Modell verarbeitet wird, also Eingabe Größe etc. -> Ist eine gute Idee für die Präsentation (**In Bearbeitung**)
+- ⁠Erklären können, wie ein Bild bspw. bei dem Gender Modell verarbeitet wird, also Eingabe Größe etc. -> Ist eine gute Idee für die Präsentation (**Erledigt**)
 - Eventuell schauen, ob es möglich ist, die Face Detection noch genauer zu machen. Aktuell wird nur ein "padding" Bereich von dem Gesicht extrahiert (könnte immernoch beeinflussbaren Hintergrund enthalen!) (**Erledigt**)
 - Wenn noch Zeit ist, eventuell Hyperparameter Tuning betreiben (Wäre interessant zu sehen, ob das noch verbesserungen bringt, oder nicht)
 - Es müssen die Modelle jetzt noch über die Data Augmenation Pipeline verbessert werden und dann auch noch im richtigen Verzeichnis 'With_DA_Pipeline' speichern (Aktuell dauert ein Durchlauf mit der Pipeline 14 Minuten, da wir das ganze 10 mal machen, ergibt es eine Gesamtzeit von 2:20h pro Modell)
