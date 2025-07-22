@@ -1,0 +1,10 @@
+keras==2.15.0
+matplotlib==3.8.2
+mediapipe==0.10.21
+nbconvert==7.16.6
+nbformat==5.10.4
+numpy==2.3.1
+opencv_contrib_python==4.11.0.86
+opencv_python==4.10.0.84
+Pillow==11.3.0
+tensorflow==2.15.0

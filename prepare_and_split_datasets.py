@@ -1,3 +1,4 @@
+import argparse
 import nbformat
 import subprocess
 import os
@@ -109,20 +110,31 @@ def download_datasets(download_urls_with_output_path: Dict[str, str]) -> None:
                 print(f"Unknown error: {e}")
 
 if __name__ == "__main__":
-    # The paths of the datasets must always be adjusted if necessary
-    download_urls_with_output_path = {"https://www.kaggle.com/api/v1/datasets/download/jessicali9530/celeba-dataset": os.path.expanduser("~/Person-feature-detection/Datasets/celeba-dataset.zip"), "https://www.kaggle.com/api/v1/datasets/download/jangedoo/utkface-new": os.path.expanduser("~/Person-feature-detection/Datasets/utkface-dataset.zip")}
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--path', help="The path of the project")
+    args = parser.parse_args()
+    
+    if args.path is not None:
+        
+        path_of_project = args.path
+        
+        # The paths of the datasets must always be adjusted if necessary
+        download_urls_with_output_path = {"https://www.kaggle.com/api/v1/datasets/download/jessicali9530/celeba-dataset": os.path.expanduser(f"{path_of_project}/Datasets/celeba-dataset.zip"), "https://www.kaggle.com/api/v1/datasets/download/jangedoo/utkface-new": os.path.expanduser(f"{path_of_project}/Datasets/utkface-dataset.zip")}
 
-    # Downloads the datasets
-    download_datasets(download_urls_with_output_path)
+        # Downloads the datasets
+        download_datasets(download_urls_with_output_path)
 
-    # Extracts the datasets
-    for _, output_path in download_urls_with_output_path.items():
-        extract_path = Path(output_path).with_suffix('')
-        extract_dataset(output_path, extract_path)
+        # Extracts the datasets
+        for _, output_path in download_urls_with_output_path.items():
+            extract_path = Path(output_path).with_suffix('')
+            extract_dataset(output_path, extract_path)
 
-    path_to_notebooks = ["gender/ProcessGenderImages.ipynb", "beard/ProcessBeardImages.ipynb", "glasses/ProcessGlassesImages.ipynb", "haircolor/ProcessHaircolorImages.ipynb", "nation/ProcessNationImages.ipynb"]
+        path_to_notebooks = ["gender/ProcessGenderImages.ipynb", "beard/ProcessBeardImages.ipynb", "glasses/ProcessGlassesImages.ipynb", "haircolor/ProcessHaircolorImages.ipynb", "nation/ProcessNationImages.ipynb"]
 
-    for notebook in path_to_notebooks:
-        print(f"Executing notebook: {notebook}")
-        run_notebook(notebook_path=notebook)
+        for notebook in path_to_notebooks:
+            print(f"Executing notebook: {notebook}")
+            run_notebook(notebook_path=notebook)
+    else:
+        print("Please use the argument -p to set your project directory!")
 
