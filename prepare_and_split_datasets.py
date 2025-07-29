@@ -110,15 +110,15 @@ def download_datasets(download_urls_with_output_path: Dict[str, str]) -> None:
                 print(f"Unknown error: {e}")
 
 if __name__ == "__main__":
-    
+
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--path', help="The path of the project")
     args = parser.parse_args()
-    
+
     if args.path is not None:
-        
+
         path_of_project = args.path
-        
+
         # The paths of the datasets must always be adjusted if necessary
         download_urls_with_output_path = {"https://www.kaggle.com/api/v1/datasets/download/jessicali9530/celeba-dataset": os.path.expanduser(f"{path_of_project}/Datasets/celeba-dataset.zip"), "https://www.kaggle.com/api/v1/datasets/download/jangedoo/utkface-new": os.path.expanduser(f"{path_of_project}/Datasets/utkface-dataset.zip")}
 
@@ -136,5 +136,4 @@ if __name__ == "__main__":
             print(f"Executing notebook: {notebook}")
             run_notebook(notebook_path=notebook)
     else:
-        print("Please use the argument -p to set your project directory!")
-
+        print("Please use the argument -p to set your project directory otherwise use the -h parameter for help")
