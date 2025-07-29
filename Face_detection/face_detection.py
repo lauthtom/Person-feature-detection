@@ -80,7 +80,7 @@ def detect_face_mediapipe(image_path: str, hair_extension_ratio=0.7):
     img = cv2.imread(image_path)
     if img is None:
         raise FileNotFoundError(f"Image not found: {image_path}")
-    
+
     mp_face_detection = mp.solutions.face_detection
     with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.6) as face_detection:
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -123,7 +123,7 @@ def detect_face_from_frame(frame: np.ndarray) -> tuple[np.ndarray, tuple[int, in
                 The coordinates (x, y) of the top-left corner and the width (w) and height (h) of the bounding box around the face.
         If no face is detected, returns (None, None)
     """
-    
+
     # Tried other classifier from google
     mp_face_detection = mp.solutions.face_detection
     with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.6) as face_detection:
@@ -150,10 +150,10 @@ def detect_face_from_frame(frame: np.ndarray) -> tuple[np.ndarray, tuple[int, in
 
         face_cropped = frame[y:y + h_box, x:x + w_box]
         return face_cropped, (x, y, w_box, h_box)
-    
+
     return None, None
 
-    
+
     # gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # face_classifier = cv2.CascadeClassifier(
@@ -163,7 +163,7 @@ def detect_face_from_frame(frame: np.ndarray) -> tuple[np.ndarray, tuple[int, in
     # faces = face_classifier.detectMultiScale(
     #     gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(40, 40)
     # )
-    
+
     # for (x, y, w, h) in faces:
     #     x_pad = int(0.1 * w)
     #     y_pad = int(0.3 * h)
@@ -256,7 +256,7 @@ def predict_detected_faces(model, class_names: list[str], padding: float, catego
             else:
                 predicted_labels = (prediction > 0.5).astype(int).flatten()
                 predicted_label = class_names[predicted_labels[0]]
-            
+
             value = prediction[0][0] if categorical else prediction[0][predicted_label_index]
             # Display the cropped face and predicted label
             plt.imshow(face_rgb)
