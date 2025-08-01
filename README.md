@@ -81,3 +81,12 @@ To test the trained models in a live video feed from your webcam, run:
 ```bash
 python text_on_camera.py
 ```
+
+---
+
+## 👤 Author
+
+This project is developed and maintained exclusively by:
+
+**Tom Lauth**  
+© 2025 — All rights reserved unless otherwise stated.
