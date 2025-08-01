@@ -1,17 +1,83 @@
-# Person-feature-detection
-Detect features of persons: gender, hair colour, beard, nationality, glasses
+# Person Feature Detection
 
-### Datasets
-The Datasets I used in this project are the following:
-* https://www.kaggle.com/datasets/jessicali9530/celeba-dataset
-* https://www.kaggle.com/datasets/jangedoo/utkface-new/data
+This project focuses on detecting and classifying human face attributes in images and videos using machine learning models.
 
-If you downloaded the Datasets, you will have to unzip these into the Datasets/ directory. If this directory doesn't exist, you will have to create it.
+## 📦 Project Setup
 
-### Running the models
-Before you run the models, you will have to execute the ProcessImages ipython notebook in each feature directory. This will create you 0.80% Train, 0.15% Test and 0.05 Validate Data.
+### 1. Clone the Repository
 
-If you want to test the models with the camera on your computer, you can start the file 'test_on_camera.py' otherwise you can test the models on some images with the 'test_on_images.py' file.
+Start by cloning the repository. Make sure to choose the target directory carefully, as it will be needed in later steps.
 
-### Keras models
-If you execute the classification ipython notebooks, the models will be saved in the Models/ directory.
+```bash
+git clone https://github.com/lauthtom/Person-feature-detection.git
+cd Person-feature-detection
+```
+
+---
+
+### 2. Create a Virtual Environment (Recommended: Anaconda)
+
+Create a new virtual environment using Anaconda with Python 3.11.7:
+
+```bash
+conda create -n <environment_name> python=3.11.7
+conda activate <environment_name>
+```
+
+---
+
+### 3. Ensure `pip` is Installed
+
+Check whether `pip` is available:
+
+```bash
+pip --version
+```
+
+If an error appears, install `pip` with:
+
+```bash
+conda install pip
+```
+
+---
+
+### 4. Install Dependencies
+
+Install all required Python packages listed in the `requirements.txt` file:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 📂 Prepare the Datasets
+
+Run the following script to prepare and split the datasets:
+
+```bash
+python prepare_and_split_datasets.py -p <path_of_the_project>
+```
+
+Replace `<path_of_the_project>` with the absolute path to your project directory.
+
+---
+
+## 🧠 Train the Models
+
+Navigate to the appropriate subdirectory and open the Jupyter Notebook (e.g., `gender/GenderClassification.ipynb`) using Jupyter Notebook or JupyterLab.
+
+Execute the cells to follow and run the entire training process.
+
+Once training is complete, the models will be saved in the `Models/` directory.
+
+---
+
+## 🎥 Live Testing with Camera (Optional)
+
+To test the trained models in a live video feed from your webcam, run:
+
+```bash
+python text_on_camera.py
+```
